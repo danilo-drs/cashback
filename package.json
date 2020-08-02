@@ -1,0 +1,24 @@
+{
+    "name": "delete-test-01",
+    "description": "delete-test-01-description",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "aws-sdk": "^2.437.0",
+        "uuid": "^8.3.0",
+        "winston": "^3.3.3"
+    },
+    "devDependencies": {
+        "eslint": "^7.6.0",
+        "eslint-config-airbnb-base": "^14.2.0",
+        "eslint-plugin-import": "^2.22.0",
+        "jest": "^24.7.1",
+        "yaml": "^1.10.0"
+    },
+    "scripts": {
+        "build": "sam build",
+        "template": "node template.js",
+        "serve:local": "node template && sam local start-api",
+        "test": "jest"
+    }
+}

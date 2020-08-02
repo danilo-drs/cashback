@@ -1,0 +1,28 @@
+SalesAgent:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "AgenttId"
+          AttributeType: "S"
+        - AttributeName: "type"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "AgenttId"
+          KeyType: "HASH"
+        - AttributeName: "type"
+          KeyType: "RANGE"
+      TableName: "SalesAgent"
+
+Tikets:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: "AgenttId"
+          AttributeType: "S"
+        - AttributeName: "tiketCode"
+          AttributeType: "S"
+      KeySchema:
+        - AttributeName: "AgenttId"
+          KeyType: "HASH"
+        - AttributeName: "tiketCode"
+          KeyType: "RANGE"
