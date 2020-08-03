@@ -24,16 +24,12 @@ module.exports = class DynamoRepository extends BaseRepository {
   async save(item) {
     logger.debug(`save ${this.tableName} input ${JSON.stringify(item)}`);
 
-    const resselerId = item.ResselerId || uuidv4();
-    const model = { ...item, ResselerId: resselerId };
+    const model = { ...item, ResselerId: item.ResselerId || uuidv4() };
+
+    await docClient.put({ ...this.params, Item: model }).promise();
+    delete model.password;
 
     logger.debug(`${this.tableName} data saved: ${JSON.stringify(model)}`);
-    delete model.password;
-    await docClient.put({
-      ...this.params,
-      Item: model,
-    }).promise();
-
     return model;
   }
 

@@ -19,11 +19,10 @@ const templateParts = [
   ...getAllFiles('src/interface'),
   './sam-output.yml',
 ];
-console.log('templateParts', templateParts);
 
 mergeFiles(templateParts, 'template.yml')
   .then((merged) => {
     if (!merged) stdout.write('Error merging template.yml');
-    else stdout.write('templete is done \n');
+    else stdout.write('SAM templete ready! \n\n');
   })
   .catch((e) => stdout.write(e));
