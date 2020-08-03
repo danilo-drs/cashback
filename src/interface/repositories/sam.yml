@@ -1,12 +1,26 @@
   Resselers:
-    Type: AWS::Serverless::SimpleTable
+    Type: AWS::DynamoDB::Table
     Properties:
-      PrimaryKey:
-        Name: ResselerId
-        Type: String
+      AttributeDefinitions:
+        - AttributeName: "ResselerId"
+          AttributeType: "S"
+        - AttributeName: "email"
+          AttributeType: "S"
+      KeySchema:
+        AttributeName: ResselerId
+        KeyType: HASH
       ProvisionedThroughput:
         ReadCapacityUnits: 2
         WriteCapacityUnits: 2
+      TableName: "Reseller"
+      GlobalSecondaryIndexes:
+        - IndexName: "byLogin"
+          KeySchema:
+            - AttributeName: "email"
+              KeyType: "HASH"
+          Projection:
+            ProjectionType: ALL
+
 
   Tikets:
       Type: AWS::DynamoDB::Table

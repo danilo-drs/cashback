@@ -8,7 +8,7 @@ module.exports = class BaseRepository {
       throw new TypeError('Must override all methods');
     }
     this.params = {
-      TableName: process.env.AGENT_TABLE_NAME,
+      TableName: process.env.RESELLER_TABLE_NAME,
     };
   }
 

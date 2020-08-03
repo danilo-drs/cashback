@@ -1,15 +1,16 @@
 const { createReseller } = require('../../factories/create-reseller');
 const { logger } = require('../../../shared/logger');
-const { serializeResellerInput } = require('../../adapters/reseler-input');
+const { serializeLoginInput } = require('../../adapters/login-input');
+const { getParameter } = require('../../repositories/parameters');
 const { BAD_REQUEST, CREATED, SERVER_ERROR } = require('../../../shared/enums/http-code').statusCode;
 
 exports.handler = async (event) => {
-  logger.debug(`post-reseller input: ${event.body}`);
-
-  const model = await serializeResellerInput(event.body);
+  logger.debug(`post-login input: ${event.body}`);
+  await getParameter('/cashbask/jwt/secret');
+  const model = await serializeLoginInput(event.body);
 
   if (model.errors) {
-    logger.debug('post-reseller BAD_REQUEST:');
+    logger.debug('post-login BAD_REQUEST:');
     return {
       statusCode: BAD_REQUEST,
       body: JSON.stringify({ success: false, errors: model.errors }),
@@ -18,13 +19,13 @@ exports.handler = async (event) => {
 
   try {
     const result = await createReseller.awsSProvider(model);
-    logger.debug(`post-reseller result: ${result}`);
+    logger.debug(`post-login result: ${result}`);
     return {
       statusCode: result.success ? CREATED : BAD_REQUEST,
       body: JSON.stringify(result),
     };
   } catch (error) {
-    logger.debug(`post-reseller error: ${error}`);
+    logger.debug(`post-login error: ${error}`);
     return {
       statusCode: SERVER_ERROR,
       body: JSON.stringify({ success: false, error: error.message }),

@@ -1,11 +1,11 @@
-  postReseller:
+  postLogin:
       Type: AWS::Serverless::Function
       Properties:
-        Handler: src/interface/handlers/post-reseller.handler
+        Handler: src/interface/handlers/post-login.handler
         Runtime: nodejs12.x
         MemorySize: 128
         Timeout: 100
-        Description: creates an new Reseller.
+        Description: validate reseller login.
         Policies:
           - AWSLambdaExecute
           - DynamoDBCrudPolicy:
@@ -18,5 +18,5 @@
           Api:
             Type: Api
             Properties:
-              Path: /Reseller
+              Path: /login
               Method: POST

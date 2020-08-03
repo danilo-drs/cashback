@@ -9,10 +9,15 @@ const docClient = new dynamodb.DocumentClient({
 });
 
 module.exports = class DynamoRepository extends BaseRepository {
+  constructor() {
+    super();
+    this.docClient = docClient;
+  }
+
   async getById(id) {
     logger.debug(`getById ${this.tableName} input ${id}`);
 
-    const result = await docClient.get({
+    const result = await this.docClient.get({
       ...this.params,
       Key: { id },
     }).promise();
@@ -26,7 +31,7 @@ module.exports = class DynamoRepository extends BaseRepository {
 
     const model = { ...item, ResselerId: item.ResselerId || uuidv4() };
 
-    await docClient.put({ ...this.params, Item: model }).promise();
+    await this.docClient.put({ ...this.params, Item: model }).promise();
     delete model.password;
 
     logger.debug(`${this.tableName} data saved: ${JSON.stringify(model)}`);

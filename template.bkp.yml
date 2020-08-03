@@ -34,7 +34,7 @@ Resources:
       Environment:
         Variables:
           # Make table name accessible as environment variable from function code during execution
-          AGENT_TABLE_NAME: !Ref SalesAgent
+          RESELLER_TABLE_NAME: !Ref SalesAgent
       Events:
         Api:
           Type: Api
@@ -60,7 +60,7 @@ Resources:
       Environment:
         Variables:
           # Make table name accessible as environment variable from function code during execution
-          AGENT_TABLE_NAME: !Ref SalesAgent
+          RESELLER_TABLE_NAME: !Ref SalesAgent
       Events:
         Api:
           Type: Api
@@ -84,7 +84,7 @@ Resources:
             TableName: !Ref SalesAgent
       Environment:
         Variables:
-          AGENT_TABLE_NAME: !Ref SalesAgent
+          RESELLER_TABLE_NAME: !Ref SalesAgent
       Events:
         Api:
           Type: Api

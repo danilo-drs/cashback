@@ -132,7 +132,7 @@ Resources:
         Environment:
           Variables:
             LOG_LEVEL: DEBUG
-            AGENT_TABLE_NAME: Reseller
+            RESELLER_TABLE_NAME: Reseller
         Events:
           Api:
             Type: Api

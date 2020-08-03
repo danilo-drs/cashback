@@ -6,7 +6,7 @@ const dynamodb = require('aws-sdk/clients/dynamodb');
 const docClient = new dynamodb.DocumentClient();
 
 // Get the DynamoDB table name from environment variables
-const tableName = process.env.AGENT_TABLE_NAME;
+const tableName = process.env.RESELLER_TABLE_NAME;
 
 /**
  * A simple example includes a HTTP post method to add one item to a DynamoDB table.

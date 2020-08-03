@@ -18,3 +18,14 @@ Resources:
   # Each Lambda function is defined by properties:
   # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
 
+
+  # NOTE: This is not a big deal to generate security parameters explicity with cloudformation, but this is just for this chalenge purpose
+  Parameters:
+    JwtSecret:
+      Type: 'AWS::SSM::Parameter::Value<String>'
+      Properties:
+        Name: /cashbask/jwt/secret
+        Type: String
+        Default: 7de13f1cd12bbd80708c2d53d90a580136bc7d2599562703845aaf107b83fc764519045a3b735ed7c2233875de268c67a71fb7c940da9cb7637feedbc0011d9f
+        Description: JWT security, only for the chalenge, do not do this for production.
+
