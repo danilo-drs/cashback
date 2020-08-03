@@ -13,8 +13,7 @@ module.exports = class BaseRepository {
   }
 
   checkType() {
-    let isRepository = typeof (this.get) === 'function';
-    isRepository = isRepository && typeof (this.getById) === 'function';
+    let isRepository = typeof (this.getById) === 'function';
     isRepository = isRepository && typeof (this.save) === 'function';
     isRepository = isRepository && typeof (this.saveMany) === 'function';
     return isRepository;

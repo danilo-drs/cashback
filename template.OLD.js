@@ -1,6 +1,6 @@
 // this is not a production script, this is used just for SAM templating
 // eslint-disable-next-line import/no-extraneous-dependencies
-const mergeFiles = require('merge-files');
+const YAML = require('yaml');
 const fs = require('fs');
 const path = require('path');
 const { stdout } = require('process');
@@ -14,16 +14,20 @@ const getAllFiles = (dir) => fs.readdirSync(dir).reduce((files, file) => {
   return files;
 }, []);
 
-const templateParts = [
-  './sam-base.yml',
-  ...getAllFiles('src/interface'),
-  './sam-output.yml',
-];
-console.log('templateParts', templateParts);
+const serverlessFunctions = getAllFiles('src/interface')
+  .reduce((apis, file) => ({ ...apis, ...YAML.parse(fs.readFileSync(file, 'utf8')) }), {});
 
-mergeFiles(templateParts, 'template.yml')
-  .then((merged) => {
-    if (!merged) stdout.write('Error merging template.yml');
-    else stdout.write('templete is done \n');
-  })
-  .catch((e) => stdout.write(e));
+fs.readdirSync('/');
+
+try {
+  let base = fs.readFileSync('./sam-base.yml', 'utf8');
+  base = YAML.parse(base);
+  base.Resources = serverlessFunctions;
+  const doc = YAML.stringify(base);
+
+  fs.writeFileSync('template.yml', doc, 'utf8');
+} catch (e) {
+  stdout.write(e);
+}
+
+stdout.write('templete is done \n');

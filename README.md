@@ -51,6 +51,18 @@ The API Gateway endpoint API will be displayed in the outputs when the deploymen
 Build your application by using the `sam build` command.
 
 ```bash
+aws dynamodb create-table \
+    --table-name Reseller \
+    --endpoint-url http://localhost:8000\
+    --attribute-definitions \
+        AttributeName=ResselerId,AttributeType=S \
+    --key-schema AttributeName=ResselerId,KeyType=HASH \
+    --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1
+
+aws dynamodb delete-table  --table-name Reseller --endpoint-url http://localhost:8000
+```
+
+```bash
 my-application$ sam build
 ```
 
@@ -61,7 +73,7 @@ Test a single function by invoking it directly with a test event. An event is a 
 Run functions locally and invoke them with the `sam local invoke` command.
 
 ```bash
-my-application$ sam local invoke postSalesAgent --event events/event-post-item.json
+my-application$ sam local invoke postReseller --event events/event-post-item.json
 my-application$ sam local invoke getAllItemsFunction --event events/event-get-all-items.json
 ```
 

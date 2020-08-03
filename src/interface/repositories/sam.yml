@@ -1,28 +1,33 @@
-SalesAgent:
-    Type: AWS::DynamoDB::Table
+  Resselers:
+    Type: AWS::Serverless::SimpleTable
     Properties:
-      AttributeDefinitions:
-        - AttributeName: "AgenttId"
-          AttributeType: "S"
-        - AttributeName: "type"
-          AttributeType: "S"
-      KeySchema:
-        - AttributeName: "AgenttId"
-          KeyType: "HASH"
-        - AttributeName: "type"
-          KeyType: "RANGE"
-      TableName: "SalesAgent"
+      PrimaryKey:
+        Name: ResselerId
+        Type: String
+      ProvisionedThroughput:
+        ReadCapacityUnits: 2
+        WriteCapacityUnits: 2
 
-Tikets:
-    Type: AWS::DynamoDB::Table
+  Tikets:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: "ResselerId"
+            AttributeType: "S"
+          - AttributeName: "tiketCode"
+            AttributeType: "S"
+        KeySchema:
+          - AttributeName: "ResselerId"
+            KeyType: "HASH"
+          - AttributeName: "tiketCode"
+            KeyType: "RANGE"
+
+  PreApproved:
+    Type: AWS::Serverless::SimpleTable
     Properties:
-      AttributeDefinitions:
-        - AttributeName: "AgenttId"
-          AttributeType: "S"
-        - AttributeName: "tiketCode"
-          AttributeType: "S"
-      KeySchema:
-        - AttributeName: "AgenttId"
-          KeyType: "HASH"
-        - AttributeName: "tiketCode"
-          KeyType: "RANGE"
+      PrimaryKey:
+        Name: cpf
+        Type: String
+      ProvisionedThroughput:
+        ReadCapacityUnits: 2
+        WriteCapacityUnits: 2

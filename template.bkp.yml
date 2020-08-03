@@ -91,7 +91,9 @@ Resources:
           Properties:
             Path: /
             Method: POST
-
+            RequestModel:
+              Model: User
+              Required: true
 
   # DynamoDB table to store item: {id: &lt;ID&gt;, name: &lt;NAME&gt;}
   SalesAgent:

@@ -1,0 +1,5 @@
+
+Outputs:
+    WebEndpoint:
+      Description: "API Gateway endpoint URL for Prod stage"
+      Value: "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"

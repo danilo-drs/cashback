@@ -18,9 +18,3 @@ Resources:
   # Each Lambda function is defined by properties:
   # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
 
-
-
-Outputs:
-    WebEndpoint:
-      Description: "API Gateway endpoint URL for Prod stage"
-      Value: "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"

@@ -1,0 +1,107 @@
+# This is the SAM template that represents the architecture of your serverless application
+# https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-template-basics.html
+
+# The AWSTemplateFormatVersion identifies the capabilities of the template
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/format-version-structure.html
+AWSTemplateFormatVersion: 2010-09-09
+Description: >-
+  cashback
+
+# Transform section specifies one or more macros that AWS CloudFormation uses to process your template
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/transform-section-structure.html
+Transform:
+- AWS::Serverless-2016-10-31
+
+# Resources declares the AWS resources that you want to include in the stack
+# https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/resources-section-structure.html
+Resources:
+  # Each Lambda function is defined by properties:
+  # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+
+
+  CashBackApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: dev
+      Models:
+        Reseller:
+          type: object
+          required:
+            - name
+            - cpf
+            - email
+            - password
+          properties:
+            name:
+              type: string
+              pattern: '^.+\s+.+$'
+            cpf:
+              type: number
+              maximum: 99999999999
+            email:
+              type: string
+              format: email
+            password:
+              type: string
+
+  postReseller:
+      Type: AWS::Serverless::Function
+      Properties:
+        Handler: src/interface/handlers/post-reseller.handler
+        Runtime: nodejs12.x
+        MemorySize: 128
+        Timeout: 100
+        Description: creates an new Reseller.
+        Policies:
+          - AWSLambdaExecute
+          - DynamoDBCrudPolicy:
+              TableName: Reseller
+        Environment:
+          Variables:
+            LOG_LEVEL: DEBUG
+            AGENT_TABLE_NAME: Reseller
+        Events:
+          Api:
+            Type: Api
+            Properties:
+              Path: /Reseller/
+              Method: POST
+
+  Resselers:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: ResselerId
+        Type: String
+      ProvisionedThroughput:
+        ReadCapacityUnits: 2
+        WriteCapacityUnits: 2
+
+  Tikets:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: "ResselerId"
+            AttributeType: "S"
+          - AttributeName: "tiketCode"
+            AttributeType: "S"
+        KeySchema:
+          - AttributeName: "ResselerId"
+            KeyType: "HASH"
+          - AttributeName: "tiketCode"
+            KeyType: "RANGE"
+
+  PreApproved:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: cpf
+        Type: String
+      ProvisionedThroughput:
+        ReadCapacityUnits: 2
+        WriteCapacityUnits: 2
+
+Outputs:
+    WebEndpoint:
+      Description: "API Gateway endpoint URL for Prod stage"
+      Value: "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"

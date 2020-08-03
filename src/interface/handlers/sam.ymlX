@@ -1,0 +1,24 @@
+  CashBackApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: dev
+      Models:
+        Reseller:
+          type: object
+          required:
+            - name
+            - cpf
+            - email
+            - password
+          properties:
+            name:
+              type: string
+              pattern: '^[A-Za-zÀ-ÿ\'\"\`\´]+\s+[A-Za-zÀ-ÿ\'\"\`\´]+$'
+            cpf:
+              type: number
+              maximum: 99999999999
+            email:
+              type: string
+              format: email
+            password:
+              type: string
