@@ -9,8 +9,8 @@ const docClient = new dynamodb.DocumentClient({
 });
 
 module.exports = class DynamoRepository extends BaseRepository {
-  constructor() {
-    super();
+  constructor(tableName) {
+    super(tableName);
     this.docClient = docClient;
   }
 

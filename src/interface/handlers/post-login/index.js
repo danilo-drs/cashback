@@ -1,12 +1,16 @@
-const { createReseller } = require('../../factories/create-reseller');
+const jwt = require('jsonwebtoken');
+const { loginReseller } = require('../../factories/login-reseller');
 const { logger } = require('../../../shared/logger');
 const { serializeLoginInput } = require('../../adapters/login-input');
-const { getParameter } = require('../../repositories/parameters');
-const { BAD_REQUEST, CREATED, SERVER_ERROR } = require('../../../shared/enums/http-code').statusCode;
+const {
+  BAD_REQUEST,
+  UNAUTHIRIZED,
+  SERVER_ERROR,
+  OK,
+} = require('../../../shared/enums/http-code').statusCode;
 
 exports.handler = async (event) => {
   logger.debug(`post-login input: ${event.body}`);
-  await getParameter('/cashbask/jwt/secret');
   const model = await serializeLoginInput(event.body);
 
   if (model.errors) {
@@ -18,10 +22,13 @@ exports.handler = async (event) => {
   }
 
   try {
-    const result = await createReseller.awsSProvider(model);
+    const result = await loginReseller.awsSProvider(model);
+    if (result.success) {
+      result.token = jwt.sign(result.reseller, process.env.JWT_SECRET, { expiresIn: '1h' });
+    }
     logger.debug(`post-login result: ${result}`);
     return {
-      statusCode: result.success ? CREATED : BAD_REQUEST,
+      statusCode: result.success ? OK : UNAUTHIRIZED,
       body: JSON.stringify(result),
     };
   } catch (error) {

@@ -56,8 +56,22 @@ aws dynamodb create-table \
     --endpoint-url http://localhost:8000\
     --attribute-definitions \
         AttributeName=ResselerId,AttributeType=S \
-    --key-schema AttributeName=ResselerId,KeyType=HASH \
-    --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1
+        AttributeName=email,AttributeType=S \
+    --key-schema \
+        AttributeName=ResselerId,KeyType=HASH \
+    --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 \
+    --global-secondary-indexes \
+      "[{
+        \"IndexName\": \"byLogin\",
+          \"KeySchema\":[
+            {\"AttributeName\":\"email\", \"KeyType\": \"HASH\"}
+            ],
+          \"Projection\":{\"ProjectionType\": \"ALL\"},
+          \"ProvisionedThroughput\": {
+                    \"ReadCapacityUnits\": 10,
+                    \"WriteCapacityUnits\": 5
+                }
+        }]"
 
 aws dynamodb delete-table  --table-name Reseller --endpoint-url http://localhost:8000
 ```

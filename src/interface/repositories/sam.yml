@@ -22,18 +22,18 @@
             ProjectionType: ALL
 
 
-  Tikets:
+  Tickets:
       Type: AWS::DynamoDB::Table
       Properties:
         AttributeDefinitions:
           - AttributeName: "ResselerId"
             AttributeType: "S"
-          - AttributeName: "tiketCode"
+          - AttributeName: "ticketCode"
             AttributeType: "S"
         KeySchema:
           - AttributeName: "ResselerId"
             KeyType: "HASH"
-          - AttributeName: "tiketCode"
+          - AttributeName: "ticketCode"
             KeyType: "RANGE"
 
   PreApproved:

@@ -20,8 +20,6 @@ const templateParts = [
   './sam-output.yml',
 ];
 
-console.log('templateParts', templateParts);
-
 mergeFiles(templateParts, 'template.yml')
   .then((merged) => {
     if (!merged) stdout.write('Error merging template.yml');
