@@ -1,7 +1,7 @@
 # cashback
 
 
-Projeto Nodejs construído com arquitetura [serverless da AWS](https://aws.amazon.com/pt/serverless/).
+Projeto Nodejs construído com arquitetura [serverless da AWS](https://aws.amazon.com/pt/serverless/) usando [SAM](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-command-reference.html).
 
 ## A Solução
 * Nodejs escrito em javascript
