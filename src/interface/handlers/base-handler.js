@@ -12,7 +12,7 @@ exports.baseHandler = async ({
   logger.debug(`${logPrefix} input: ${event.body}`);
 
   const model = await serializer(event.body);
-  console.log('-----------------------------------> ', event.body, model);
+
   if (model.errors) {
     logger.debug(`${logPrefix} BAD_REQUEST`);
     return {

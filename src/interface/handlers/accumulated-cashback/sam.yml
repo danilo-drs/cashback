@@ -1,0 +1,23 @@
+  AccumulatedCashback:
+      Type: AWS::Serverless::Function
+      Properties:
+        Handler: src/interface/handlers/accumulated-cashback.handler
+        Runtime: nodejs12.x
+        MemorySize: 128
+        Timeout: 100
+        Description: recover accumulated value of cashback
+        Policies:
+          - AWSLambdaExecute
+        Environment:
+          Variables:
+            LOG_LEVEL: DEBUG
+            CASH_BACK_SERVICE_URL: https://mdaqk8ek5j.execute-api.us-east-1.amazonaws.com/v1/cashback
+            # NOTE: This is an security issue to generate classified parameters explicity with cloudformation,
+            # but this is just for this chalenge because cloud formation dont generate ssm when runs locally
+            CASH_BACK_SERVICE_TOKEN: ZXPURQOARHiMc6Y0flhRC1LVlZQVFRnm
+        Events:
+          Api:
+            Type: Api
+            Properties:
+              Path: /cashback/{cpf}
+              Method: GET

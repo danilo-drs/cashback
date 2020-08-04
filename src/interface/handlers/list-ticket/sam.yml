@@ -1,0 +1,22 @@
+  ListTicket:
+      Type: AWS::Serverless::Function
+      Properties:
+        Handler: src/interface/handlers/list-ticket.handler
+        Runtime: nodejs12.x
+        MemorySize: 128
+        Timeout: 100
+        Description: list all reseller tickets
+        Policies:
+          - AWSLambdaExecute
+          - DynamoDBCrudPolicy:
+              TableName: Tiket
+        Environment:
+          Variables:
+            LOG_LEVEL: DEBUG
+            TICKET_TABLE_NAME: Ticket
+        Events:
+          Api:
+            Type: Api
+            Properties:
+              Path: /ticket/{cpf}
+              Method: GET

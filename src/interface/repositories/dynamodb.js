@@ -13,16 +13,22 @@ module.exports = class DynamoRepository extends BaseRepository {
     this.docClient = docClient;
   }
 
-  async getById(id) {
-    logger.debug(`getById ${this.tableName} input ${id}`);
+  async getById(param) {
+    logger.debug(`getById ${this.tableName} input ${JSON.stringify(param)}`);
 
-    const result = await this.docClient.get({
+    const result = await this.docClient.query({
       ...this.params,
-      Key: { id },
+      KeyConditionExpression: `#${param.key} = :value`,
+      ExpressionAttributeNames: {
+        [`#${param.key}`]: param.key,
+      },
+      ExpressionAttributeValues: {
+        ':value': param.value,
+      },
     }).promise();
 
-    logger.debug(`getById ${this.tableName} input ${id}`);
-    return result;
+    logger.debug(`getById ${this.tableName} input ${param}`);
+    return { items: result.Items, count: result.Count };
   }
 
   async save(item) {

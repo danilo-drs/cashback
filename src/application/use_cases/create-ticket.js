@@ -1,5 +1,5 @@
 const { logger } = require('../../shared/logger');
-const { evalPreApproved } = require('../business-rules/pre-approved-tikets');
+const { evalPreApproved } = require('../business-rules/pre-approved-tickets');
 const { cashBackRate } = require('../business-rules/cashback-rate');
 
 exports.createTicket = async (ticketModel, ticketRepository) => {
