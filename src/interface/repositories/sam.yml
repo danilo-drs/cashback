@@ -6,6 +6,8 @@
           AttributeType: "S"
         - AttributeName: "email"
           AttributeType: "S"
+        - AttributeName: "cpf"
+          AttributeType: "S"
       KeySchema:
         AttributeName: ResselerId
         KeyType: HASH
@@ -17,6 +19,12 @@
         - IndexName: "byLogin"
           KeySchema:
             - AttributeName: "email"
+              KeyType: "HASH"
+          Projection:
+            ProjectionType: ALL
+        - IndexName: "byCpf"
+          KeySchema:
+            - AttributeName: "cpf"
               KeyType: "HASH"
           Projection:
             ProjectionType: ALL

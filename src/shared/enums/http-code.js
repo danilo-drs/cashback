@@ -6,6 +6,7 @@ exports.statusCode = Object.freeze({
   FORBIDDEN: 403,
   UNAUTHIRIZED: 401,
   NOT_FOUND: 404,
+  UNPROCESSABLE: 422,
 
   SERVER_ERROR: 500,
 });

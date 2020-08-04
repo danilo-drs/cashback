@@ -1,4 +1,5 @@
 const Joi = require('@hapi/joi');
+const { baseSerializer } = require('./base-serializer');
 const { generateHash } = require('../../shared/enums/hash');
 
 const reselerInputSchema = Joi.object({
@@ -6,24 +7,11 @@ const reselerInputSchema = Joi.object({
   password: Joi.string().required(),
 });
 
+exports.serializeLoginInput = (body) => baseSerializer(body, reselerInputSchema);
 exports.serializeLoginInput = async (body) => {
-  let model;
-  try {
-    model = JSON.parse(body);
-  } catch (error) {
-    return (
-      { errors: ['invalid Json'] }
-    );
-  }
-  let errors;
-  try {
-    await reselerInputSchema.validateAsync(model, { abortEarly: false });
-  } catch (err) {
-    errors = err.details.reduce((errorList, error) => ([...errorList, error.message]), []);
-  }
+  const result = await baseSerializer(body, reselerInputSchema);
   return {
-    ...model,
-    password: generateHash(model.password),
-    errors,
+    ...result,
+    password: generateHash(result.password),
   };
 };
