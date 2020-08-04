@@ -14,9 +14,14 @@
           Variables:
             LOG_LEVEL: DEBUG
             RESELLER_TABLE_NAME: Reseller
+            # NOTE: This is an security issue to generate classified parameters explicity with cloudformation,
+            # but this is just for this chalenge because cloud formation dont generate ssm when runs locally
+            JWT_SECRET: 7de13f1cd12bbd80708c2d53d90a580136bc7d2599562703845aaf107b83fc764519045a3b735ed7c2233875de268c67a71fb7c940da9cb7637feedbc0011d9f
+
         Events:
           Api:
             Type: Api
             Properties:
+              RestApiId: !Ref CashbackAPI
               Path: /Reseller
               Method: POST

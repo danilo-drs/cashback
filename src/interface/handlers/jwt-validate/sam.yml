@@ -1,0 +1,6 @@
+
+  JwtValidateAuthorizer:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/interface/handlers/jwt-validate.handler
+      Runtime: nodejs12.x

@@ -22,5 +22,6 @@
           Api:
             Type: Api
             Properties:
+              RestApiId: !Ref CashbackAPI
               Path: /login
               Method: POST

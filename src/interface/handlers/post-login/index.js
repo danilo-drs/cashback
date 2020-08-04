@@ -14,6 +14,7 @@ exports.handler = async (event) => {
     serializer: serializeLoginInput,
     useCaseFactory: loginReseller,
     logPrefix: 'post-login',
+    authenticated: false,
   });
   if (result.success) result.statusCode = OK;
   if (result.statusCode === UNPROCESSABLE) result.statusCode = UNAUTHIRIZED;

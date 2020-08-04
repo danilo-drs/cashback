@@ -1,5 +1,6 @@
 const { logger } = require('../../../shared/logger');
 const { listTicket } = require('../../factories/list-ticket');
+const { jwtVerify } = require('../../../shared/validate-token');
 const {
   SERVER_ERROR,
   OK,
@@ -8,6 +9,14 @@ const {
 const logPrefix = 'list-ticket';
 exports.handler = async (event) => {
   logger.debug(`${logPrefix} input: ${event.body}`);
+
+  // NOTE: this project has an API Gateway Authorizer
+  // auth validation is not needed inside lambda in an published environment
+  // but SAM does not implement authorizers locally,
+  // for this test purpose the authorization was made inside lambda
+  const { Authorization = '' } = event.headers;
+  const auth = jwtVerify(Authorization.replace(/Bearer\s*/, ''));
+  if (!auth.success) return auth.result;
 
   const { cpf } = event.pathParameters;
 
