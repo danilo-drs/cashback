@@ -16,6 +16,7 @@
         "eslint": "^7.6.0",
         "eslint-config-airbnb-base": "^14.2.0",
         "eslint-plugin-import": "^2.22.0",
+        "eslint-plugin-jest": "^23.20.0",
         "jest": "^24.9.0",
         "merge-files": "^0.1.2",
         "yaml": "^1.10.0"
@@ -25,5 +26,14 @@
         "template": "node template.js",
         "serve:local": "node template && sam local start-api --docker-network host",
         "test": "jest"
-    }
+    },
+    "jest": {
+        "verbose": true,
+        "setupFiles": ["./.jest/setEnvVars.js"],
+        "collectCoverageFrom": [
+            "**/*.{js}",
+            "!**/node_modules/**",
+            "!**/vendor/**"
+          ]
+      }
 }

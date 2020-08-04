@@ -7,4 +7,5 @@ exports.handler = async (event) => baseHandler({
   serializer: serializeResellerInput,
   useCaseFactory: createReseller,
   logPrefix: 'post-reseller',
+  authenticated: false,
 });
