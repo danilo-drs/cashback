@@ -1,4 +1,3 @@
-const { v4: uuidv4 } = require('uuid');
 const dynamodb = require('aws-sdk/clients/dynamodb');
 const { logger } = require('../../shared/logger');
 const BaseRepository = require('./base-repository');
@@ -28,14 +27,12 @@ module.exports = class DynamoRepository extends BaseRepository {
 
   async save(item) {
     logger.debug(`save ${this.tableName} input ${JSON.stringify(item)}`);
-
-    const model = { ...item, ResselerId: item.ResselerId || uuidv4() };
-
+    const model = { ...item };
     await this.docClient.put({ ...this.params, Item: model }).promise();
     delete model.password;
 
-    logger.debug(`${this.tableName} data saved: ${JSON.stringify(model)}`);
-    return model;
+    logger.debug(`${this.tableName} data saved: ${JSON.stringify(item)}`);
+    return item;
   }
 
   saveMany() {

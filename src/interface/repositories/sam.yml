@@ -34,15 +34,16 @@
       Type: AWS::DynamoDB::Table
       Properties:
         AttributeDefinitions:
-          - AttributeName: "ResselerId"
+          - AttributeName: "cpf"
             AttributeType: "S"
-          - AttributeName: "ticketCode"
+          - AttributeName: "code"
             AttributeType: "S"
         KeySchema:
-          - AttributeName: "ResselerId"
+          - AttributeName: "cpf"
             KeyType: "HASH"
-          - AttributeName: "ticketCode"
+          - AttributeName: "code"
             KeyType: "RANGE"
+        TableName: "Reseller"
 
   PreApproved:
     Type: AWS::Serverless::SimpleTable

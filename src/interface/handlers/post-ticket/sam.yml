@@ -18,5 +18,5 @@
           Api:
             Type: Api
             Properties:
-              Path: /Ticket
+              Path: /ticket
               Method: POST

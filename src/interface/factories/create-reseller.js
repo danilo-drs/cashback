@@ -1,4 +1,4 @@
-const { createReseller } = require('../../application/use_cases/create_reseller');
+const { createReseller } = require('../../application/use_cases/create-reseller');
 const DynamoRepository = require('../repositories/dynamodb');
 
 exports.createReseller = {

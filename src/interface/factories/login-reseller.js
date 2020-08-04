@@ -1,4 +1,4 @@
-const { loginReseller } = require('../../application/use_cases/login_reseller');
+const { loginReseller } = require('../../application/use_cases/login-reseller');
 const LoginDynamoRepository = require('../repositories/login-dynamodb');
 
 exports.loginReseller = {

@@ -1,6 +1,6 @@
 const Joi = require('@hapi/joi');
 const { baseSerializer } = require('./base-serializer');
-const { generateHash } = require('../../shared/enums/hash');
+const { generateHash } = require('../../shared/hash');
 
 const reselerInputSchema = Joi.object({
   email: Joi.string().email().required(),

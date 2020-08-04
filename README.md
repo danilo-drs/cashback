@@ -75,6 +75,21 @@ aws dynamodb create-table \
 
 aws dynamodb delete-table  --table-name Reseller --endpoint-url http://localhost:8000
 ```
+```bash
+aws dynamodb create-table \
+    --table-name Ticket \
+    --endpoint-url http://localhost:8000\
+    --attribute-definitions \
+        AttributeName=cpf,AttributeType=N \
+        AttributeName=code,AttributeType=N \
+    --key-schema \
+        AttributeName=cpf,KeyType=HASH \
+        AttributeName=code,KeyType=RANGE \
+    --provisioned-throughput ReadCapacityUnits=1,WriteCapacityUnits=1 \
+
+aws dynamodb delete-table  --table-name Ticket --endpoint-url http://localhost:8000
+```
+
 
 ```bash
 my-application$ sam build
