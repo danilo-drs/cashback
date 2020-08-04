@@ -1,0 +1,187 @@
+{
+	"info": {
+		"_postman_id": "8f8d2286-7767-47b2-aa39-c46fa508770f",
+		"name": "cashback",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1 - Create resseler",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n    \"name\" : \"Danilo Ribeiro\",\r\n    \"cpf\": 121212,\r\n    \"email\": \"danilo2@danilo.com\",\r\n    \"password\": \"asasasas\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3000/Reseller",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"Reseller"
+					]
+				},
+				"description": "Cria um revendedor"
+			},
+			"response": []
+		},
+		{
+			"name": "2 - Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n    \"email\": \"danilo2@danilo.com\",\r\n    \"password\": \"asasasas\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3000/login",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"login"
+					]
+				},
+				"description": "Efetua o login e recupera o Bearer Token"
+			},
+			"response": []
+		},
+		{
+			"name": "3 - Create Tiket",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiRGFuaWxvIFJpYmVpcm8iLCJjcGYiOjEyMTIxMiwiZW1haWwiOiJkYW5pbG8yQGRhbmlsby5jb20iLCJSZXNzZWxlcklkIjoiM2RjMGM1ODctZGQ3NS00MWZhLTg2MTUtOGNlYjFjMWI5YjBmIiwiaWF0IjoxNTk2NTQ5NjA1LCJleHAiOjE1OTY1NTMyMDV9.RVJwZ_Sz8RpdM0MCreNM_fwZ9zxor9gVctDW1PXfPxU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \r\n    \"code\": 1212,\r\n    \"amount\":2000,\r\n    \"date\": \"2020-07-30\",\r\n    \"cpf\": 15350946057\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3000/ticket",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"ticket"
+					]
+				},
+				"description": "Salva o registro da venda"
+			},
+			"response": []
+		},
+		{
+			"name": "4 - List Tickets",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiRGFuaWxvIFJpYmVpcm8iLCJjcGYiOjEyMTIxMiwiZW1haWwiOiJkYW5pbG8yQGRhbmlsby5jb20iLCJSZXNzZWxlcklkIjoiM2RjMGM1ODctZGQ3NS00MWZhLTg2MTUtOGNlYjFjMWI5YjBmIiwiaWF0IjoxNTk2NTQ5NjA1LCJleHAiOjE1OTY1NTMyMDV9.RVJwZ_Sz8RpdM0MCreNM_fwZ9zxor9gVctDW1PXfPxU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3000/ticket/15350946057",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"ticket",
+						"15350946057"
+					]
+				},
+				"description": "Lista as vendas de um reseller"
+			},
+			"response": []
+		},
+		{
+			"name": "5 - Show credits",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiRGFuaWxvIFJpYmVpcm8iLCJjcGYiOjEyMTIxMiwiZW1haWwiOiJkYW5pbG8yQGRhbmlsby5jb20iLCJSZXNzZWxlcklkIjoiM2RjMGM1ODctZGQ3NS00MWZhLTg2MTUtOGNlYjFjMWI5YjBmIiwiaWF0IjoxNTk2NTQ5NjA1LCJleHAiOjE1OTY1NTMyMDV9.RVJwZ_Sz8RpdM0MCreNM_fwZ9zxor9gVctDW1PXfPxU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3000/cashback/15350946057",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"cashback",
+						"15350946057"
+					]
+				},
+				"description": "Recupera os créditos de cashback de um revendedor"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
